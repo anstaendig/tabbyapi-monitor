@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+set -eu
+project_dir=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+monitor_bin="$project_dir/target/release/tabbyapi-monitor"
+if [ ! -x "$monitor_bin" ]; then
+    printf '%s\n' 'Build the native monitor first: cargo build --release --locked' >&2
+    exit 1
+fi
+exec "$monitor_bin" "$@"
